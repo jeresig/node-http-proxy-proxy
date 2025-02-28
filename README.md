@@ -36,7 +36,7 @@ pnpm dev
 
 In development mode, authentication is disabled for easier testing. You can make requests without the Authorization header:
 ```bash
-curl "http://localhost:3000/?url=https://api.example.com"
+curl "http://localhost:3000/proxy?url=https://api.example.com"
 ```
 
 ### Code Formatting
@@ -79,7 +79,7 @@ pm2 logs proxy-server
 
 In production mode, all requests require authentication with a Bearer token:
 ```bash
-curl "http://localhost:3000/?url=https://api.example.com" \
+curl "http://localhost:3000/proxy?url=https://api.example.com" \
   -H "Authorization: Bearer your_access_key"
 ```
 
@@ -94,12 +94,12 @@ curl "http://localhost:3000/?url=https://api.example.com" \
 
 Using the configured proxy (default):
 ```bash
-curl "http://localhost:3000/?url=https://api.example.com"
+curl "http://localhost:3000/proxy?url=https://api.example.com"
 ```
 
 Bypassing the proxy:
 ```bash
-curl "http://localhost:3000/?url=https://api.example.com&proxy=false"
+curl "http://localhost:3000/proxy?url=https://api.example.com&proxy=false"
 ```
 
 ## Environment Variables

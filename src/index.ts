@@ -77,7 +77,7 @@ app.use("*", async (c, next) => {
     await next();
 });
 
-app.get("/", async (c) => {
+app.get("/proxy", async (c) => {
     const targetUrl = c.req.query("url");
     const disableProxy = c.req.query("proxy") === "false";
 
