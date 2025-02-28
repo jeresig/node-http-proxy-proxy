@@ -1,0 +1,31 @@
+{
+    "name": "node-http-proxy-proxy",
+    "version": "1.0.0",
+    "description": "HTTP proxy server that forwards requests to specified URLs",
+    "main": "src/index.ts",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc",
+        "start": "pm2 start dist/index.js --name 'proxy-server'",
+        "stop": "pm2 stop proxy-server",
+        "format": "biome format --write .",
+        "lint": "biome lint .",
+        "check": "biome check --apply ."
+    },
+    "dependencies": {
+        "@hono/node-server": "^1.13.8",
+        "dotenv": "^16.4.7",
+        "hono": "^4.7.2",
+        "https-proxy-agent": "^7.0.6",
+        "node-fetch": "^3.3.2",
+        "pm2": "^5.4.3"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^1.9.4",
+        "@types/node": "^20.11.24",
+        "tsx": "^4.19.3",
+        "typescript": "^5.8.2"
+    },
+    "type": "module",
+    "packageManager": "pnpm@10.1.0"
+}
