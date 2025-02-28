@@ -121,20 +121,23 @@ The server uses PM2 for production process management with the following feature
 - **Logs**: Access logs with `pm2 logs proxy-server`
 - **Process Control**: Start/stop with `pnpm start` and `pnpm stop`
 
-PM2 Configuration (`ecosystem.config.js`):
-```javascript
-{
-    name: "proxy-server",
-    script: "./dist/index.js",
-    instances: 1,
-    exec_mode: "fork",
-    watch: false,
-    autorestart: true,
-    max_restarts: 10,
-    min_uptime: "10s",
-    env: {
-        NODE_ENV: "production"
-    },
-    exp_backoff_restart_delay: 100
-}
+### Log Files
+
+PM2 logs are stored in the `logs` directory:
+- `logs/out.log`: Standard output logs
+- `logs/error.log`: Error logs
+
+The logs are in JSON format and include timestamps. You can access them in several ways:
+```bash
+# View logs in real-time
+pm2 logs proxy-server
+
+# View only error logs
+pm2 logs proxy-server --err
+
+# View only output logs
+pm2 logs proxy-server --out
+
+# View last N lines
+pm2 logs proxy-server --lines 100
 ```

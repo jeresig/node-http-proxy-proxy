@@ -6,8 +6,8 @@
     "scripts": {
         "dev": "tsx watch src/index.ts",
         "build": "tsc",
-        "start": "NODE_ENV=production pm2 start dist/index.js --name 'proxy-server'",
-        "restart": "NODE_ENV=production pm2 restart proxy-server",
+        "start": "pm2 start dist/index.js --name 'proxy-server'",
+        "restart": "pm2 restart proxy-server",
         "stop": "pm2 stop proxy-server",
         "format": "biome format --write .",
         "lint": "biome lint .",
