@@ -42,7 +42,7 @@ const app = new Hono();
 const port = process.env.PORT || 3000;
 const accessKey = process.env.ACCESS_KEY;
 const proxyUrl = process.env.PROXY_URL;
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV !== "development";
 const maxConnections = Number.parseInt(process.env.MAX_CONNECTIONS || "4", 10);
 
 // Create a semaphore with configurable number of permits
