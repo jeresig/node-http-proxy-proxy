@@ -38,6 +38,14 @@ class Semaphore {
     }
 }
 
+const makeFormDataFromObject = (obj: Record<string, string>) => {
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(obj)) {
+        formData.append(key, value);
+    }
+    return formData;
+};
+
 const app = new Hono();
 const port = process.env.PORT || 3000;
 const accessKey = process.env.ACCESS_KEY;
@@ -80,6 +88,11 @@ app.use("*", async (c, next) => {
 app.get("/proxy", async (c) => {
     const targetUrl = c.req.query("url");
     const disableProxy = c.req.query("proxy") === "false";
+    let body: FormData | string | undefined = c.req.query("body");
+
+    if (body && typeof body === "string" && body.startsWith("{")) {
+        body = makeFormDataFromObject(JSON.parse(body));
+    }
 
     if (!targetUrl) {
         return c.json({error: "URL parameter is required"}, 400);
@@ -97,7 +110,13 @@ app.get("/proxy", async (c) => {
         }
 
         try {
-            const response = await fetch(targetUrl, fetchOptions);
+            const response = body
+                ? await fetch(targetUrl, {
+                      ...fetchOptions,
+                      body,
+                      method: "POST",
+                  })
+                : await fetch(targetUrl, fetchOptions);
 
             // Convert headers to a plain object
             const headers: Record<string, string> = {};
