@@ -121,8 +121,10 @@ app.get("/proxy", async (c) => {
             // Convert headers to a plain object
             const headers: Record<string, string> = {};
             response.headers.forEach((value, key) => {
-                headers[key] = value;
-                c.header(key, value);
+                if (key !== "content-encoding") {
+                    headers[key] = value;
+                    c.header(key, value);
+                }
             });
 
             // Get the response body as a buffer
